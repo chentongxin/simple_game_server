@@ -12,44 +12,55 @@
 #include <cstring>
 #include <iostream>
 #include <boost/asio.hpp>
+#include <boost/thread.hpp>
+#include <boost/lexical_cast.hpp> 
 
 using boost::asio::ip::tcp;
 
 enum { max_length = 1024 };
 
-int main(int argc, char* argv[])
+void thread()
 {
 	try
 	{
-		if (argc != 3)
-		{
-			std::cerr << "Usage: blocking_tcp_echo_client <host> <port>\n";
-			return 1;
-		}
-
 		boost::asio::io_context io_context;
 
 		tcp::socket s(io_context);
 		tcp::resolver resolver(io_context);
-		boost::asio::connect(s, resolver.resolve(argv[1], argv[2]));
+		boost::asio::connect(s, resolver.resolve("127.0.0.1", "10086"));
+		for (int i = 0; i < 10000; i++)
+		{
+			std::string request = boost::lexical_cast<std::string>(boost::this_thread::get_id()) + "---" + boost::lexical_cast<std::string>(i);
+			std::cout << "send: ";
+			std::cout.write(request.c_str(), request.length());
+			std::cout << "\n";
+			size_t request_length = request.length();
+			boost::asio::write(s, boost::asio::buffer(request.c_str(), request_length));
 
-		std::cout << "Enter message: ";
-		char request[max_length];
-		std::cin.getline(request, max_length);
-		size_t request_length = std::strlen(request);
-		boost::asio::write(s, boost::asio::buffer(request, request_length));
+			char reply[max_length];
+			size_t reply_length = boost::asio::read(s,
+				boost::asio::buffer(reply, request_length));
+			std::cout << "Reply is: ";
+			std::cout.write(reply, reply_length);
+			std::cout << "\n";
+		}
 
-		char reply[max_length];
-		size_t reply_length = boost::asio::read(s,
-			boost::asio::buffer(reply, request_length));
-		std::cout << "Reply is: ";
-		std::cout.write(reply, reply_length);
-		std::cout << "\n";
 	}
 	catch (std::exception& e)
 	{
 		std::cerr << "Exception: " << e.what() << "\n";
 	}
+}
 
+
+int main(int argc, char* argv[])
+{
+	
+	for (int i = 0; i < 10000; i++)
+	{
+		boost::thread t1(thread);
+		t1.join();
+	}
+	
 	return 0;
 }

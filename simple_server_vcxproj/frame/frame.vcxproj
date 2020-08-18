@@ -85,6 +85,9 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
+    <Link>
+      <OutputFile>..\..\exe\bin\$(TargetName)$(TargetExt)</OutputFile>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -115,7 +118,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\frame\config.cpp" />
+    <ClCompile Include="..\..\src\frame\logger.cpp" />
     <ClCompile Include="..\..\src\frame\main.cpp" />
+    <ClCompile Include="..\..\src\frame\server_manager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\frame\config.h" />
+    <ClInclude Include="..\..\src\frame\logger.h" />
+    <ClInclude Include="..\..\src\frame\server_manager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

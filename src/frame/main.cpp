@@ -13,6 +13,8 @@
 #include <memory>
 #include <utility>
 #include <boost/asio.hpp>
+#include "server_manager.h"
+#include "logger.h"
 
 using boost::asio::ip::tcp;
 
@@ -93,22 +95,30 @@ int main(int argc, char* argv[])
 {
 	try
 	{
-		if (argc != 2)
+		// name
+		if (argc < 2)
 		{
-			std::cerr << "Usage: async_tcp_echo_server <port>\n";
-			return 1;
+			assert(false);
+			return -1;
 		}
+
+		if (!CServerManager::getInstance()->Init(argv[1]))
+		{
+			LogError("CServerManager Init Failed!");
+			return -1;
+		}
+		LogError("CServerManager Init success!");
 
 		boost::asio::io_context io_context;
 
-		server s(io_context, std::atoi(argv[1]));
+		server s(io_context, std::atoi("10086"));
 
 		io_context.run();
 	}
 	catch (std::exception& e)
 	{
-		std::cerr << "Exception: " << e.what() << "\n";
+		std::string info ="Exception:" ;
+		LogError(info + e.what());
 	}
-
 	return 0;
 }
