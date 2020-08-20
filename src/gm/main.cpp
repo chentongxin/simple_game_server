@@ -14,8 +14,8 @@
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 #include <boost/lexical_cast.hpp> 
-#include <boost\timer.hpp>
-#include <boost\progress.hpp>
+#include <boost/timer.hpp>
+#include <boost/progress.hpp>
 
 using boost::asio::ip::tcp;
 
