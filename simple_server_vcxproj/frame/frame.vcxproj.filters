@@ -10,9 +10,6 @@
     <ClCompile Include="..\..\src\frame\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\frame\logger.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\frame\config.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -21,9 +18,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\frame\logger.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\frame\config.h">
       <Filter>源文件</Filter>
     </ClInclude>

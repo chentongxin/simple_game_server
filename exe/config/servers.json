@@ -1,6 +1,6 @@
 {
 	"game": {
 		"port": "10086",
-		"log_level":"0"
+		"log_level":"1"
 	}
 }

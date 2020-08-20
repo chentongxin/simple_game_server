@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frame", "frame\frame.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gm", "gm\gm.vcxproj", "{2B3F23DA-DAC9-4C3B-B245-0BAEADF1630F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "share", "share\share.vcxproj", "{CEB35340-B108-423A-94BA-A4E926EC02FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{2B3F23DA-DAC9-4C3B-B245-0BAEADF1630F}.Release|x64.Build.0 = Release|x64
 		{2B3F23DA-DAC9-4C3B-B245-0BAEADF1630F}.Release|x86.ActiveCfg = Release|Win32
 		{2B3F23DA-DAC9-4C3B-B245-0BAEADF1630F}.Release|x86.Build.0 = Release|Win32
+		{CEB35340-B108-423A-94BA-A4E926EC02FB}.Debug|x64.ActiveCfg = Debug|x64
+		{CEB35340-B108-423A-94BA-A4E926EC02FB}.Debug|x64.Build.0 = Debug|x64
+		{CEB35340-B108-423A-94BA-A4E926EC02FB}.Debug|x86.ActiveCfg = Debug|Win32
+		{CEB35340-B108-423A-94BA-A4E926EC02FB}.Debug|x86.Build.0 = Debug|Win32
+		{CEB35340-B108-423A-94BA-A4E926EC02FB}.Release|x64.ActiveCfg = Release|x64
+		{CEB35340-B108-423A-94BA-A4E926EC02FB}.Release|x64.Build.0 = Release|x64
+		{CEB35340-B108-423A-94BA-A4E926EC02FB}.Release|x86.ActiveCfg = Release|Win32
+		{CEB35340-B108-423A-94BA-A4E926EC02FB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

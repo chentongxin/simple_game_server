@@ -14,6 +14,8 @@
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 #include <boost/lexical_cast.hpp> 
+#include <boost\timer.hpp>
+#include <boost\progress.hpp>
 
 using boost::asio::ip::tcp;
 
@@ -28,21 +30,16 @@ void thread()
 		tcp::socket s(io_context);
 		tcp::resolver resolver(io_context);
 		boost::asio::connect(s, resolver.resolve("127.0.0.1", "10086"));
-		for (int i = 0; i < 10000; i++)
+		boost::progress_timer pt;
+		for (int i = 0; i < 30000; i++)
 		{
 			std::string request = boost::lexical_cast<std::string>(boost::this_thread::get_id()) + "---" + boost::lexical_cast<std::string>(i);
-			std::cout << "send: ";
-			std::cout.write(request.c_str(), request.length());
-			std::cout << "\n";
 			size_t request_length = request.length();
 			boost::asio::write(s, boost::asio::buffer(request.c_str(), request_length));
 
 			char reply[max_length];
 			size_t reply_length = boost::asio::read(s,
 				boost::asio::buffer(reply, request_length));
-			std::cout << "Reply is: ";
-			std::cout.write(reply, reply_length);
-			std::cout << "\n";
 		}
 
 	}
@@ -56,11 +53,11 @@ void thread()
 int main(int argc, char* argv[])
 {
 	
-	for (int i = 0; i < 10000; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		boost::thread t1(thread);
 		t1.join();
 	}
-	
+	getchar();
 	return 0;
 }

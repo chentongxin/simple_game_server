@@ -87,6 +87,7 @@
     </ClCompile>
     <Link>
       <OutputFile>..\..\exe\bin\$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalDependencies>share.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -119,13 +120,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\frame\config.cpp" />
-    <ClCompile Include="..\..\src\frame\logger.cpp" />
     <ClCompile Include="..\..\src\frame\main.cpp" />
     <ClCompile Include="..\..\src\frame\server_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\frame\config.h" />
-    <ClInclude Include="..\..\src\frame\logger.h" />
     <ClInclude Include="..\..\src\frame\server_manager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

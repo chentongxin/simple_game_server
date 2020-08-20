@@ -1,5 +1,5 @@
 #include "config.h"
-#include "logger.h"
+#include "../share/logger.h"
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -32,13 +32,13 @@ bool CConfig::ReadServers(const std::string& module_path)
 	{
 		if (it->first.length() <= 0)
 		{
-			LogError("empty key" + file_path);
+			LogError("CConfig::ReadServers empty key:", file_path);
 			continue;
 		}
 		m_servers_config.insert(std::make_pair(it->first, it->second.get_value<std::string>()));
 	}
 
-	LogInfo("read config:" + file_path);
+	LogInfo("CConfig::ReadServers read config success: servers.json");
 	return true;
 }
 
