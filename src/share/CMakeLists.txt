@@ -1,8 +1,8 @@
 cmake_minimum_required (VERSION 2.8.1)
 
-PROJECT("frame")
+PROJECT("share")
 
-FILE(GLOB frame_src "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+FILE(GLOB share_src "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 
 ADD_DEFINITIONS(-DBOOST_LOG_DYN_LINK)
 
@@ -26,11 +26,10 @@ if(Boost_FOUND)
     INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 	
 	# 将源代码添加到此项目的可执行文件。
-	ADD_EXECUTABLE (frame ${frame_src} )
-    target_link_libraries (frame 
+	ADD_LIBRARY (share STATIC ${share_src} )
+    target_link_libraries (share 
 		${Boost_LIBRARIES}
 		${CMAKE_THREAD_LIBS_INIT}
 		libpthread.so.0
-		share
 	)
 endif()

@@ -3,3 +3,8 @@ x64
 .vs
 logs
 bin
+*.cmake
+CMakeFiles
+*.a
+*Makefile*
+*CMakeCache*
