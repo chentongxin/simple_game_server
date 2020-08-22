@@ -10,6 +10,11 @@ simple_server
 依赖第三方库:
 
 	一、boost1.74.0
+	
+	编译：
+		$cd boost_1_57_0
+		$./bootstrap.sh
+		$./b2 stage --build-type=complete --layout=tagged address-model=64 link=shared
 
 	安装路径：
 	
