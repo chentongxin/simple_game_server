@@ -14,8 +14,7 @@
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 #include <boost/lexical_cast.hpp> 
-#include <boost/atomic/atomic.hpp>
-#include <boost/timer.hpp>
+#include <boost/atomic.hpp>
 #include <boost/progress.hpp>
 
 using boost::asio::ip::tcp;
@@ -23,7 +22,7 @@ using std::string;
 
 enum { max_length = 1024 };
 
-boost::atomic_int count = 0;
+boost::atomic<int> count(0);
 
 int post(const string& host, const string& port, const string& page, const string& data, string& reponse_data)
 {

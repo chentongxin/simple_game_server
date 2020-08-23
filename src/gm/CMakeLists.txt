@@ -14,6 +14,7 @@ find_package(Boost COMPONENTS
 			regex
 			system
 			thread
+			timer
 			REQUIRED)
 
 if(Boost_FOUND)
