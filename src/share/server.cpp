@@ -12,7 +12,6 @@
 #include <signal.h>
 #include <utility>
 
-namespace http {
 namespace server {
 
 server::server(const std::string& address, const std::string& port)
@@ -90,4 +89,3 @@ void server::do_await_stop()
 }
 
 } // namespace server
-} // namespace http

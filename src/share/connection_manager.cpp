@@ -10,7 +10,6 @@
 
 #include "connection_manager.hpp"
 
-namespace http {
 namespace server {
 
 connection_manager::connection_manager()
@@ -37,4 +36,3 @@ void connection_manager::stop_all()
 }
 
 } // namespace server
-} // namespace http

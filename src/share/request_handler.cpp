@@ -12,11 +12,9 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "mime_types.hpp"
 #include "reply.hpp"
 #include "request.hpp"
 
-namespace http {
 namespace server {
 
 request_handler::request_handler()
@@ -76,4 +74,3 @@ bool request_handler::url_decode(const std::string& in, std::string& out)
 }
 
 } // namespace server
-} // namespace http

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "server.hpp"
 
 class CConfig;
 class CServerNet;
@@ -10,9 +11,13 @@ public:
 
 	bool Init(std::string name);
 	bool Start();
+	bool Stop();
+
 
 	bool ReadConfig();
 	const std::string& GetModulePath() const;
+
+	void Update();
 private:
 	static CServerManager* instance;
 	CServerManager();
@@ -22,4 +27,6 @@ private:
 
 	CConfig* m_config;
 	CServerNet* m_net;
+
+	server::server* m_server;
 };

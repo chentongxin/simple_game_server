@@ -17,7 +17,6 @@
 #include "connection_manager.hpp"
 #include "request_handler.hpp"
 
-namespace http {
 namespace server {
 
 /// The top-level class of the HTTP server.
@@ -58,6 +57,5 @@ private:
 };
 
 } // namespace server
-} // namespace http
 
 #endif // HTTP_SERVER_HPP

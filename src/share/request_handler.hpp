@@ -13,7 +13,6 @@
 
 #include <string>
 
-namespace http {
 namespace server {
 
 struct reply;
@@ -39,6 +38,5 @@ private:
 };
 
 } // namespace server
-} // namespace http
 
 #endif // HTTP_REQUEST_HANDLER_HPP

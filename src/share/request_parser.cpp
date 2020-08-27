@@ -13,19 +13,16 @@
 #include <boost/lexical_cast.hpp>
 #include <cctype>
 
-namespace http {
 namespace server {
 
 request_parser::request_parser()
-  : content_length_(0)
-	, state_(method_start)
+  : state_(method_start)
 {
 }
 
 void request_parser::reset()
 {
   state_ = method_start;
-  content_length_ = 0;
 }
 
 request_parser::result_type request_parser::consume(request& req, char input)
@@ -282,44 +279,17 @@ request_parser::result_type request_parser::consume(request& req, char input)
   case expecting_newline_3:
     if (input == '\n')
     {
-		for (std::size_t i = 0; i < req.headers.size(); ++i)
-		{
-			if (headers_equal(req.headers[i].name, "Content-Length"))
-			{
-				try
-				{
-					content_length_ = boost::lexical_cast<std::size_t>(req.headers[i].value);
-				}
-				catch (boost::bad_lexical_cast&)
-				{
-					content_length_ = 0;
-				}
-				break;;
-			}
-		}
-		if (content_length_<=0)
-		{
-			return good;
-		}
-		state_ = expecting_content;
-		return indeterminate;
+		return good;
     }
 	else
 	{
 		return bad;
 	}
-  case expecting_content:
-	  // Content.
-	  req.content.push_back(input);
-	  if (req.content.size() < content_length_)
-	  {
-		  return indeterminate;
-	  }
-	  return good;
   default:
     return bad;
   }
 }
+
 
 bool request_parser::is_char(int c)
 {
@@ -365,4 +335,3 @@ bool request_parser::headers_equal(const std::string& a, const std::string& b)
 		&request_parser::tolower_compare);
 }
 } // namespace server
-} // namespace http

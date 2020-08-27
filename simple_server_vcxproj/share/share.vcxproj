@@ -69,7 +69,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>$(TargetName)</TargetName>
+    <OutDir>../../share/lib/</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -118,15 +121,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\share\config.h" />
+    <ClInclude Include="..\..\src\share\connection.hpp" />
+    <ClInclude Include="..\..\src\share\connection_manager.hpp" />
+    <ClInclude Include="..\..\src\share\header.hpp" />
     <ClInclude Include="..\..\src\share\logger.h" />
+    <ClInclude Include="..\..\src\share\reply.hpp" />
+    <ClInclude Include="..\..\src\share\request.hpp" />
+    <ClInclude Include="..\..\src\share\request_handler.hpp" />
+    <ClInclude Include="..\..\src\share\request_parser.hpp" />
+    <ClInclude Include="..\..\src\share\server.hpp" />
+    <ClInclude Include="..\..\src\share\server_manager.h" />
     <ClInclude Include="..\..\src\share\server_net.h" />
     <ClInclude Include="..\..\src\share\server_session.h" />
+    <ClInclude Include="..\..\src\share\session_manager.h" />
     <ClInclude Include="..\..\src\share\util.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\share\config.cpp" />
+    <ClCompile Include="..\..\src\share\connection.cpp" />
+    <ClCompile Include="..\..\src\share\connection_manager.cpp" />
     <ClCompile Include="..\..\src\share\logger.cpp" />
+    <ClCompile Include="..\..\src\share\reply.cpp" />
+    <ClCompile Include="..\..\src\share\request_handler.cpp" />
+    <ClCompile Include="..\..\src\share\request_parser.cpp" />
+    <ClCompile Include="..\..\src\share\server.cpp" />
+    <ClCompile Include="..\..\src\share\server_manager.cpp" />
     <ClCompile Include="..\..\src\share\server_net.cpp" />
     <ClCompile Include="..\..\src\share\server_session.cpp" />
+    <ClCompile Include="..\..\src\share\session_manager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

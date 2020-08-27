@@ -13,8 +13,9 @@
 
 #include <tuple>
 #include <string>
+#include <boost/lexical_cast.hpp>
+#include "request.hpp"
 
-namespace http {
 namespace server {
 
 struct request;
@@ -32,6 +33,31 @@ public:
   /// Result of parse.
   enum result_type { good, bad, indeterminate };
 
+  template <typename InputIterator>
+  void parse_content(request& req, InputIterator begin, InputIterator end)
+  {
+	  size_t content_length = 0;
+	  for (std::size_t i = 0; i < req.headers.size(); ++i)
+	  {
+		  if (headers_equal(req.headers[i].name, "Content-Length"))
+		  {
+			  try
+			  {
+				  content_length = boost::lexical_cast<std::size_t>(req.headers[i].value);
+				  break;
+			  }
+			  catch (boost::bad_lexical_cast&)
+			  {
+				  content_length = 0;
+			  }
+		  }
+	  }
+	  if (content_length > 0 && (begin + content_length) <= end)
+	  {
+		  req.content = std::string(begin, begin + content_length);
+	  }
+  }
+
   /// Parse some data. The enum return value is good when a complete request has
   /// been parsed, bad if the data is invalid, indeterminate when more data is
   /// required. The InputIterator return value indicates how much of the input
@@ -43,16 +69,20 @@ public:
     while (begin != end)
     {
       result_type result = consume(req, *begin++);
-      if (result == good || result == bad)
-        return std::make_tuple(result, begin);
+	  if (result == good || result == bad)
+	  {
+		  if (result == good && begin != end)
+		  {
+			  parse_content(req, begin, end);
+		  }
+		  return std::make_tuple(result, begin);
+	  }
     }
     return std::make_tuple(indeterminate, begin);
   }
 
+  
 private:
-
-	/// Content length as decoded from headers. Defaults to 0.
-	std::size_t content_length_;
 
   /// Handle the next character of input.
   result_type consume(request& req, char input);
@@ -96,12 +126,10 @@ private:
     space_before_header_value,
     header_value,
     expecting_newline_2,
-    expecting_newline_3,
-	expecting_content
+    expecting_newline_3
   } state_;
 };
 
 } // namespace server
-} // namespace http
 
 #endif // HTTP_REQUEST_PARSER_HPP

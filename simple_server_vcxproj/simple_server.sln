@@ -4,12 +4,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frame", "frame\frame.vcxproj", "{FEFB064F-EE30-47C0-942C-CC8ACAA6AE0E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CEB35340-B108-423A-94BA-A4E926EC02FB} = {CEB35340-B108-423A-94BA-A4E926EC02FB}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gm", "gm\gm.vcxproj", "{2B3F23DA-DAC9-4C3B-B245-0BAEADF1630F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CEB35340-B108-423A-94BA-A4E926EC02FB} = {CEB35340-B108-423A-94BA-A4E926EC02FB}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "share", "share\share.vcxproj", "{CEB35340-B108-423A-94BA-A4E926EC02FB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "http_proxy", "http_proxy\http_proxy.vcxproj", "{13D5FBF3-D779-4CE1-AB65-535AA819F3A8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CEB35340-B108-423A-94BA-A4E926EC02FB} = {CEB35340-B108-423A-94BA-A4E926EC02FB}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

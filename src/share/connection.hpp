@@ -19,7 +19,6 @@
 #include "request_handler.hpp"
 #include "request_parser.hpp"
 
-namespace http {
 namespace server {
 
 class connection_manager;
@@ -31,7 +30,7 @@ class connection
 public:
   connection(const connection&) = delete;
   connection& operator=(const connection&) = delete;
-
+  ~connection();
   /// Construct a connection with the given socket.
   explicit connection(boost::asio::ip::tcp::socket socket,
       connection_manager& manager, request_handler& handler);
@@ -74,6 +73,5 @@ private:
 typedef std::shared_ptr<connection> connection_ptr;
 
 } // namespace server
-} // namespace http
 
 #endif // HTTP_CONNECTION_HPP

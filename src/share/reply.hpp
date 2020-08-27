@@ -16,7 +16,6 @@
 #include <boost/asio.hpp>
 #include "header.hpp"
 
-namespace http {
 namespace server {
 
 /// A reply to be sent to a client.
@@ -59,6 +58,5 @@ struct reply
 };
 
 } // namespace server
-} // namespace http
 
 #endif // HTTP_REPLY_HPP

@@ -19,25 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\http_proxy\connection.cpp" />
-    <ClCompile Include="..\..\src\http_proxy\connection_manager.cpp" />
     <ClCompile Include="..\..\src\http_proxy\main.cpp" />
-    <ClCompile Include="..\..\src\http_proxy\mime_types.cpp" />
-    <ClCompile Include="..\..\src\http_proxy\reply.cpp" />
-    <ClCompile Include="..\..\src\http_proxy\request_handler.cpp" />
-    <ClCompile Include="..\..\src\http_proxy\request_parser.cpp" />
-    <ClCompile Include="..\..\src\http_proxy\server.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\src\http_proxy\connection.hpp" />
-    <ClInclude Include="..\..\src\http_proxy\connection_manager.hpp" />
-    <ClInclude Include="..\..\src\http_proxy\header.hpp" />
-    <ClInclude Include="..\..\src\http_proxy\mime_types.hpp" />
-    <ClInclude Include="..\..\src\http_proxy\reply.hpp" />
-    <ClInclude Include="..\..\src\http_proxy\request.hpp" />
-    <ClInclude Include="..\..\src\http_proxy\request_handler.hpp" />
-    <ClInclude Include="..\..\src\http_proxy\request_parser.hpp" />
-    <ClInclude Include="..\..\src\http_proxy\server.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -90,7 +72,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\exe\bin\</OutDir>
+    <TargetName>$(TargetName)</TargetName>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -100,6 +85,7 @@
     </ClCompile>
     <Link>
       <OutputFile>..\..\exe\bin\$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalDependencies>share.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

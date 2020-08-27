@@ -20,7 +20,7 @@
 using boost::asio::ip::tcp;
 using std::string;
 
-enum { max_length = 1024 };
+enum { max_length = 15 };
 
 boost::atomic<int> count(0);
 
@@ -55,22 +55,29 @@ int post(const string& host, const string& port, const string& page, const strin
 		request_stream << "Content-Type: application/x-www-form-urlencoded\r\n";
 		request_stream << "Connection: close\r\n\r\n";
 		request_stream << data;
+		for (;;)
+		{
+			getchar();
+			std::cout << "open:" << socket.is_open() << std::endl;
+			std::cout << "send a post" << std::endl;
+		
+			// Send the request.
+			size_t size = boost::asio::write(socket, request);
 
-		// Send the request.
-		boost::asio::write(socket, request);
+			// Read the response status line. The response streambuf will automatically
+			// grow to accommodate the entire line. The growth may be limited by passing
+			// a maximum size to the streambuf constructor.
+			boost::asio::streambuf response;
+			//boost::asio::read_until(socket, response, "\r\n");
 
-		// Read the response status line. The response streambuf will automatically
-		// grow to accommodate the entire line. The growth may be limited by passing
-		// a maximum size to the streambuf constructor.
-		boost::asio::streambuf response;
-		boost::asio::read_until(socket, response, "\r\n");
+			//将boost::asio::streambuf转为std::string
+			//boost::asio::streambuf::const_buffers_type cbt = response.data();
+			//std::string response_data(boost::asio::buffers_begin(cbt), boost::asio::buffers_end(cbt));
 
-		//将boost::asio::streambuf转为std::string
-		boost::asio::streambuf::const_buffers_type cbt = response.data();
-		std::string response_data(boost::asio::buffers_begin(cbt), boost::asio::buffers_end(cbt));
-
-		count++;
-		std::cout << count << std::endl;
+			count++;
+			std::cout << count << size << std::endl;
+		}
+		
 	}
 	catch (std::exception& e)
 	{
@@ -106,7 +113,7 @@ void thread()
 		string page = "/auth/login";
 		string data = "{\"name\":12345}";
 		string reponse_data;
-		for (int i = 0; i < 1; i++)
+		//for (int i = 0; i < 1; i++)
 		{
 			int ret = post(host, port, page, data, reponse_data);
 			if (ret != 0)
@@ -119,17 +126,37 @@ void thread()
 	}
 }
 
-
 int main(int argc, char* argv[])
 {
+	try
 	{
-		for (int i = 0; i < 20000; i++)
+		boost::asio::io_context io_context;
+
+		tcp::socket s(io_context);
+		tcp::resolver resolver(io_context);
+		boost::asio::connect(s, resolver.resolve("127.0.0.1", "10080"));
+
+		for (int i=0; i<100; i++)
 		{
-			boost::thread t1(thread);
-			t1.join();
+			std::cout << "Enter message: ";
+			char request[max_length] = {'a'};
+			//std::cin.getline(request, max_length);
+			size_t request_length = std::strlen(request);
+			std::string temp = "POST / HTTP/1.1\r\nHost: 127.0.0.1:10080\r\nConnection: keep-alive\r\nContent-Length: 12\r\nAccept: application/json, text/javascript, */*; q=0.01\r\nAccept-Encoding: gzip, deflate, br\r\nAccept-Language: zh-CN\r\nContent-Type: application/json\r\nOrigin: http://127.0.0.1:10080\r\nUser-Agent: ApiPOST Runtime +https://www.apipost.cn\r\n\r\n{\"name\":123}";
+			//std::string temp = "aaaaaaaaaaaaaa";
+			boost::asio::write(s, boost::asio::buffer(temp, temp.length()));
+
+			char reply[max_length] = {0};
+			size_t reply_length = boost::asio::read(s,
+				boost::asio::buffer(reply, max_length));
+			std::cout << "Reply is: " << reply << "=====" << i << std::endl;
 		}
+		getchar();
 	}
-	std::cout << "返回：" << count << std::endl;
-	getchar();
+	catch (std::exception& e)
+	{
+		std::cerr << "Exception: " << e.what() << "\n";
+	}
+
 	return 0;
 }
